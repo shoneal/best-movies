@@ -508,7 +508,7 @@ const emptyMessages = {
       "Следите за фильмами, которые вы хотите посмотреть, установив флажки под их записями.",
   },
 };
-const basicLink = "https://jeromesolomonmalone.github.io/best-movies/";
+const basicLink = "https://shoneal.github.io/best-movies/";
 const VideoUtils = {
   cleanName(str) {
     return str
