@@ -568,7 +568,6 @@ function renderHeader() {
     const secondRect = second.getBoundingClientRect();
     const thirdRect = third.getBoundingClientRect();
 
-    // Проверяем: верхняя граница логотипа ≥ верхней границы блока
     const logoTopCrossesSecond = logoRect.top >= secondRect.top;
     const logoTopCrossesThird = logoRect.top >= thirdRect.top;
     const darkTheme = document.documentElement.classList.contains("dark-theme");
@@ -579,9 +578,7 @@ function renderHeader() {
         : "";
   }
 
-  window.addEventListener("resize", () => {
-    requestAnimationFrame(checkLogoPosition);
-  });
+  window.addEventListener("resize", checkLogoPosition);
   document.addEventListener("DOMContentLoaded", checkLogoPosition);
 
   [...indices].forEach((idx, i) => {
@@ -597,28 +594,21 @@ function renderHeader() {
     video.loop = video.muted = video.autoplay = video.playsInline = true;
     video.poster = VideoUtils.getPoster(film.original);
 
+    ["mobile", "desktop"].forEach((type) => {
+      const source = document.createElement("source");
+      source.src = `${basicLink}video/${type}/${cleaned}.mp4`;
+      source.type = "video/mp4";
+      source.media =
+        type === "mobile" ? "(max-width: 500px)" : "(min-width: 501px)";
+      video.appendChild(source);
+    });
+    video.src = `${basicLink}video/desktop/${cleaned}.mp4`;
+
     const wrapper = document.createElement("div");
     wrapper.className = "header_video_wrapper";
     block.appendChild(wrapper);
     wrapper.appendChild(video);
     container.appendChild(block);
-
-    const logo = document.querySelector(".header_logo");
-    function checkLogoPosition() {
-      const videos = container.querySelectorAll(".header_video_block");
-      const [second, third] = [videos[1], videos[2]];
-      const logoRect = logo.getBoundingClientRect();
-      const secondRect = second.getBoundingClientRect();
-      const thirdRect = third.getBoundingClientRect();
-      const logoTopCrossesSecond = logoRect.top >= secondRect.top;
-      const logoTopCrossesThird = logoRect.top >= thirdRect.top;
-      const darkTheme =
-        document.documentElement.classList.contains("dark-theme");
-      logo.style.filter =
-        darkTheme || logoTopCrossesSecond || logoTopCrossesThird
-          ? "invert(100%)"
-          : "";
-    }
 
     video.addEventListener("loadedmetadata", () => {
       loadedCount++;
@@ -629,7 +619,6 @@ function renderHeader() {
         checkLogoPosition();
       }
     });
-    video.src = `${basicLink}video/mobile/${cleaned}.mp4`;
   });
 }
 function initHeaderScroll() {
@@ -676,7 +665,6 @@ function initHeaderScroll() {
   update();
   window.addEventListener("scroll", scroll, { passive: true });
 }
-
 function addScrollHandler() {
   const navHeight = document.querySelector(".navigation").offsetHeight;
   function handleScroll(selector) {
@@ -714,7 +702,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortedFilms = Object.values(films)
     .sort((a, b) => a.place - b.place)
     .reverse();
-  let isDesktop = window.innerWidth > 500;
 
   function createWatchlistContainers() {
     const template = document.querySelector(".watchlist_container");
@@ -746,19 +733,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateWatchlist();
   updateWatchlistCounts();
   addScrollHandler();
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 500 === isDesktop) return;
-    isDesktop = window.innerWidth > 500;
-    document.querySelectorAll(".movie_video").forEach((video) => {
-      const place = +video.closest(".movie_item").id.replace("movie-", "");
-      const film = sortedFilms.find((f) => f.place === place);
-      const cleaned = VideoUtils.cleanName(film.original);
-      video.src = `${basicLink}video/${
-        isDesktop ? "desktop/" : "mobile/"
-      }${cleaned}.mp4`;
-    });
-  });
 
   function updateNavigationPlaces() {
     const container = document.querySelector(".navigation_places");
@@ -809,10 +783,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const video = clone.querySelector(".movie_video");
       const cleaned = VideoUtils.cleanName(film.original);
-      video.src = `${basicLink}video/${
-        isDesktop ? "desktop/" : "mobile/"
-      }${cleaned}.mp4`;
       video.poster = VideoUtils.getPoster(film.original);
+
+      ["mobile", "desktop"].forEach((type) => {
+        const source = document.createElement("source");
+        source.src = `${basicLink}video/${type}/${cleaned}.mp4`;
+        source.type = "video/mp4";
+        source.media =
+          type === "mobile" ? "(max-width: 500px)" : "(min-width: 501px)";
+        video.appendChild(source);
+      });
+
+      video.src = `${basicLink}video/desktop/${cleaned}.mp4`;
+
       video.addEventListener("loadedmetadata", () => {
         video.style.opacity = "1";
       });
