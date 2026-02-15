@@ -1,4 +1,4 @@
-const films = {
+export const films = {
   "Ла-Ла Ленд": {
     title: "Ла-Ла Ленд",
     original: "La La Land",

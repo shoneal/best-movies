@@ -1,3 +1,5 @@
+import { films } from './films.js';
+
 const emptyMessages = {
   have_watched: {
     first: "Я пока не смотрел ни один из этих фильмов…",
