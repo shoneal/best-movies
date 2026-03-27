@@ -38,10 +38,3 @@
   font-weight: 700;
   font-display: block;
 }
-
-@font-face {
-  font-family: "Alfa Slab One";
-  src: url("./AlfaSlabOne-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-display: block;
-}
