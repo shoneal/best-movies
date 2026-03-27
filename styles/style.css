@@ -61,7 +61,7 @@ body {
 .header {
   position: relative;
   width: 100%;
-  height: calc(var(--hundredsvh) * 3.4);
+  height: calc(var(--hundredsvh) * 3.25);
 }
 
 .header_logo {
