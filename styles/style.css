@@ -2,23 +2,17 @@
   --imperial: "STIX Two Text", serif;
   --cheltenham: "Noto Serif", serif;
   --franklin: "Libre Franklin", sans-serif;
-  --stymiehed: "Alfa Slab One", serif;
-  --background: #fff;
-  --background-reverse: #121212;
-  --saving-background: #f2f2f2;
-  --main-color: #333;
-  --body-color: var(--main-color);
-  --color-secondary: #999;
-  --border: #e5e5e5;
-  --border-navigation: #ccc;
-  --button-border: #dfdfdf;
-  --button-background: #ebebeb;
-  --link-underline: inherit;
-  --link-color: #326891;
-  --link-border: rgba(50, 104, 145, 0.25);
+  --main-color: #f8f8f8;
+  --color-secondary: #9c9c9c;
+  --background: #121212;
+  --border: #dfdfdf;
+  --white: white;
+  --saving-background: #272728;
+  --link-underline: #aaa;
+  --border-navigation: rgb(255 255 255 / 24%);
+  --hundredsvh: 100svh;
   --width-body: 600px;
   --width-standart: calc(100% - 40px);
-  --hundredsvh: 100svh;
 }
 
 *,
@@ -55,53 +49,54 @@ video {
 
 body {
   position: relative;
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   color: var(--main-color);
-  font-family: var(--cheltenham);
+  font-family: var(--imperial);
   background: var(--background);
-  block-size: 100%;
 }
 
 .header {
   position: relative;
-  block-size: calc(var(--hundredsvh) * 3);
-  inline-size: 100%;
+  width: 100%;
+  height: calc(var(--hundredsvh) * 3);
 }
 
 .header_logo {
   position: absolute;
   left: 50%;
   z-index: 1000;
+  width: auto;
+  height: 26px;
+  min-height: 26px;
   margin: 10px auto 2px;
-  filter: none;
+  filter: invert(100%);
   transform: translateX(-50%);
-  block-size: 26px;
-  min-block-size: 26px;
-  inline-size: auto;
 }
 
 .header_title_wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: var(--width-body);
+  min-height: var(--hundredsvh);
   margin-bottom: calc(var(--hundredsvh) * -1);
   margin-inline: auto;
   padding-inline: 10px;
-  inline-size: 100%;
-  min-block-size: var(--hundredsvh);
-  max-inline-size: var(--width-body);
+  font-family: var(--cheltenham);
 }
 
 .header_title {
+  max-width: 720px;
   margin: 0 20px;
   font-weight: 400;
   font-size: 42px;
   line-height: 1.1256;
   text-align: center;
   text-transform: uppercase;
-  max-inline-size: 720px;
 }
 
 .header_title_count {
@@ -115,18 +110,18 @@ body {
   top: 0;
   left: 0;
   z-index: 100;
+  width: 100%;
+  height: var(--hundredsvh);
   overflow: hidden;
   pointer-events: none;
-  inline-size: 100%;
-  block-size: var(--hundredsvh);
 }
 
 .header_videos {
   position: relative;
+  width: 100%;
+  max-width: var(--width-body);
+  height: 100%;
   margin-inline: auto;
-  inline-size: 100%;
-  block-size: 100%;
-  max-inline-size: var(--width-body);
 }
 
 .header_video_block {
@@ -134,46 +129,45 @@ body {
   top: 50%;
   left: 50%;
   box-sizing: border-box;
+  width: 50%;
   padding: 1%;
   transition: opacity 0.25s ease-out;
-  inline-size: 50%;
 }
 
 .header_video_wrapper {
   position: relative;
-  aspect-ratio: 1.7777777777777777;
+  aspect-ratio: 1.777777777777778;
 }
 
 .header_video {
+  width: 100%;
   opacity: 0;
-  inline-size: 100%;
 }
 
 .main_text {
+  max-width: var(--width-body);
+  margin-bottom: 24px;
   margin-inline: auto;
-  margin-block-end: 24px;
   padding: 0 20px;
-  font-family: var(--imperial);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 20px;
-  line-height: 1.6;
-  max-inline-size: var(--width-body);
+  line-height: 1.5;
 }
 
 .navigation {
   position: sticky;
   top: -1px;
   z-index: 1000;
+  width: 100%;
   padding: 10px 20px 0;
   opacity: 0;
   overflow-x: auto;
   background: var(--background);
   transition: all 0.3s;
-  inline-size: 100%;
 }
 
 .navigation.open {
-  border-block-end: 1px solid var(--border-navigation);
+  border-bottom: 1px solid var(--border-navigation);
   opacity: 1;
 }
 
@@ -181,17 +175,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  width: fit-content;
+  height: 46px;
   margin: 0 auto;
-  padding-block-start: 10px;
-  inline-size: fit-content;
-  block-size: 46px;
+  padding-top: 10px;
 }
 
 .navigation_places {
   display: flex;
   gap: 20px;
-  border-inline-end: 1px solid var(--border);
-  padding-inline-end: 20px;
+  border-right: 1px solid var(--border);
+  padding-right: 20px;
 }
 
 .navigation_wrapper a {
@@ -203,12 +197,8 @@ body {
   transition: all 0.2s;
 }
 
-.navigation_places a:hover {
-  text-decoration-color: var(--background-reverse);
-}
-
 .navigation_watchlist {
-  padding-inline-start: 20px;
+  padding-left: 20px;
 }
 
 .navigation_link div {
@@ -241,104 +231,111 @@ body {
 }
 
 .movie_item {
+  width: var(--width-standart);
+  max-width: var(--width-body);
   margin-inline: auto;
   margin-block: 60px;
   padding: 20px 0;
   overflow-x: hidden;
+  text-align: center;
   inline-size: 100%;
-  max-inline-size: 1230px;
 }
 
-.movie_video_wrapper {
-  position: relative;
-  margin: 0 auto;
-  inline-size: auto;
-  aspect-ratio: 1/0.5625;
-  max-block-size: calc(100vh - 60px);
+.movie_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-family: var(--cheltenham);
 }
 
-.movie_video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  opacity: 0;
-  inline-size: 100%;
-  block-size: 100%;
+.movie_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  max-width: 35px;
+  height: 35px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 50%;
+  background-color: transparent;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+
+.movie_link svg {
+  width: 70%;
+  fill: var(--color-secondary);
+  transition: fill 0.25s;
 }
 
 .movie_place {
-  position: absolute;
-  bottom: 74px;
-  left: 50%;
-  display: block;
-  color: #ffffff;
-  font-family: var(--stymiehed);
-  font-weight: 900;
-  font-size: 133px;
-  line-height: 64px;
-  transform: translate3d(-50%, 0, 0);
-  inline-size: var(--width-standart);
-  max-inline-size: 600px;
-}
-
-.movie_header_text {
-  margin: 30px auto 49px;
-  inline-size: var(--width-standart);
-  max-inline-size: var(--width-body);
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 1;
 }
 
 .movie_name {
-  margin-block-end: 8px;
-  color: var(--body-color);
-  font-weight: 500;
-  font-size: 33px;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
+  font-size: 38px;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
 }
 
 .movie_director_and_year {
   color: var(--color-secondary);
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 1.454545454545455;
+  font-size: 21px;
+  line-height: 1.25;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.movie_video_wrapper {
+  width: 100%;
+  margin-block: 30px;
+  aspect-ratio: 1.77777777778;
+}
+
+.movie_video {
+  opacity: 0;
+  inline-size: 100%;
 }
 
 .movie_text {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin: 0 auto;
-  inline-size: var(--width-standart);
-  max-inline-size: var(--width-body);
-}
-
-.movie_opinion {
+  color: var(--main-color);
   font-family: var(--imperial);
   font-size: 1.25rem;
   line-height: 1.5;
+  text-align: start;
+}
+
+.movie_opinion {
+  font-weight: 500;
 }
 
 .movie_quotes {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-block: 30px;
+  font-family: var(--cheltenham);
 }
 
 .movie_quote {
-  border-inline-start: 1px solid var(--border-navigation);
-  padding-inline-start: 20px;
+  border-left: 1px solid var(--border-navigation);
+  padding-left: 20px;
 }
 
 .movie_quote p:first-child {
   font-weight: 350;
-  font-size: 22px;
+  font-size: 26px;
   font-style: italic;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 
 .movie_quote p:last-child {
-  margin-block-start: 13px;
+  margin-top: 13px;
   color: var(--color-secondary);
   font-weight: 500;
   font-size: 18px;
@@ -347,67 +344,55 @@ body {
   text-transform: uppercase;
 }
 
-.movie_link {
-  border-block-end: 1px solid var(--link-border);
-  color: var(--link-color);
-  font-family: var(--franklin);
-  font-size: 15px;
-  line-height: 22px;
-  transition: border 0.3s ease-out;
-  inline-size: fit-content;
-}
-
-.movie_link:hover {
-  border-color: var(--link-color);
-}
-
 .saving_box {
   display: flex;
   align-items: flex-start;
   gap: 20px;
+  margin-top: 10px;
   border-radius: 3px;
   padding: 20px;
   background-color: var(--saving-background);
 }
 
 .saving_poster {
+  width: 82px;
+  height: auto;
   opacity: 0;
-  block-size: auto;
-  inline-size: 82px;
 }
 
 .checkboxes_box {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  font-family: var(--cheltenham);
 }
 
 .checkboxes_box input {
   position: relative;
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
   margin: -8px 0 0;
   border: none;
   padding: 0;
   outline: none;
-  inline-size: 16px;
-  min-inline-size: 16px;
-  block-size: 16px;
-  min-block-size: 16px;
 }
 
 .checkboxes_box input::before {
   content: "";
   position: absolute;
   display: block;
-  border: 1px solid var(--background-reverse);
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--white);
   border-radius: 3px;
   background-color: var(--saving-background);
   pointer-events: none;
-  inline-size: 100%;
-  block-size: 100%;
 }
 
 .checkboxes_box input:checked::before {
-  background-color: var(--background-reverse);
+  background-color: var(--white);
 }
 
 .checkboxes_box input:checked::after {
@@ -415,12 +400,12 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 11px;
+  min-width: 11px;
   border: 3px solid var(--background);
   border-top: none;
   border-right: none;
   transform: translate(-50%, -80%) rotate(-45deg);
-  inline-size: 11px;
-  min-inline-size: 11px;
   aspect-ratio: 41.5/25;
 }
 
@@ -433,52 +418,53 @@ body {
 }
 
 .watchlist {
-  margin-block-end: 50px;
+  margin-bottom: 50px;
   padding: 60px 0;
   background-color: var(--saving-background);
 }
 
 .watchlist_header_title {
+  max-width: var(--width-standart);
   margin: 20px auto 5px;
-  color: var(--body-color);
+  color: var(--white);
+  font-family: var(--cheltenham);
   font-weight: 700;
   font-size: 23px;
   line-height: 1.25;
   text-align: center;
-  max-inline-size: var(--width-standart);
 }
 
 .watchlist_header_subtitle {
+  width: 420px;
+  max-width: var(--width-standart);
   margin: 0 auto 26px;
-  color: var(--body-color);
-  font-family: var(--imperial);
+  color: var(--white);
   font-weight: 500;
   font-size: 18px;
   line-height: 1.3;
   text-align: center;
-  max-inline-size: var(--width-standart);
-  inline-size: 420px;
 }
 
 .watchlist_containers {
   display: flex;
   flex-wrap: wrap;
+  max-width: 900px;
   margin: 0 auto;
-  max-inline-size: 900px;
+  font-family: var(--cheltenham);
 }
 
 .watchlist_container {
-  inline-size: 50%;
+  width: 50%;
 }
 
 .watchlist_wrapper {
   position: relative;
+  width: 415px;
+  max-width: 415px;
   margin: 0 auto;
   padding: 20px;
   color: #000;
   text-align: center;
-  max-inline-size: 415px;
-  inline-size: 415px;
   aspect-ratio: 9 / 16;
 }
 
@@ -494,8 +480,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  inline-size: 100%;
-  block-size: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .watchlist_subtitle {
@@ -506,8 +492,8 @@ body {
 }
 
 .watchlist_title {
-  margin-block-end: 15px;
-  font-weight: 400;
+  margin-bottom: 15px;
+  font-weight: 350;
   font-size: 38px;
   line-height: 1;
 }
@@ -528,29 +514,29 @@ body {
   align-items: center;
   align-content: center;
   gap: 5px;
+  width: 100%;
+  max-width: 100%;
+  height: 72%;
+  min-height: 320px;
   margin: 0 auto;
-  block-size: 72%;
-  min-block-size: 320px;
-  max-inline-size: 100%;
-  inline-size: 100%;
 }
 
 .watchlist_posters img {
+  width: var(--img-width);
+  height: auto;
   border-radius: 3px;
   object-fit: cover;
   opacity: 0;
-  inline-size: var(--img-width);
-  block-size: auto;
 }
 
 .watchlist_logo {
   position: absolute;
   right: 20px;
   bottom: 25px;
+  width: 32px;
+  height: 36px;
   object-fit: contain;
   opacity: 1;
-  inline-size: 32px;
-  block-size: 36px;
 }
 
 .watchlist_empty_messages .watchlist_logo {
@@ -561,10 +547,10 @@ body {
   display: block;
   width: fit-content;
   margin: 20px auto 0;
-  border: 1px solid var(--button-border);
+  border: 1px solid var(--white);
   border-radius: 6px;
   padding: 16px;
-  color: var(--background-reverse);
+  color: var(--white);
   font-family: var(--franklin);
   font-size: 16px;
   background-color: transparent;
@@ -572,78 +558,55 @@ body {
   cursor: pointer;
 }
 
-.copy-button:hover {
-  background-color: var(--button-background);
-}
-
 .copy-button:disabled {
   opacity: 0.5;
   cursor: default;
 }
 
-.copy-button:disabled:hover {
-  background-color: transparent;
-}
-
 .watchlist_movie_list {
+  max-width: var(--width-standart);
   margin: 10px auto 30px;
-  color: var(--body-color);
+  color: var(--white);
   font-family: var(--franklin);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.4;
   text-align: center;
-  max-inline-size: var(--width-standart);
 }
 
-.watchlist_movie_list a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--link-underline);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+@media (hover: hover) and (pointer: fine) {
+  .navigation_places a:hover {
+    text-decoration-color: var(--white);
+  }
+
+  .movie_link:hover {
+    border-color: var(--white);
+    background-color: var(--border-navigation);
+  }
+
+  .movie_link:hover svg {
+    fill: var(--white);
+  }
+
+  .copy-button:hover {
+    background-color: var(--border-navigation);
+  }
+
+  .copy-button:disabled:hover {
+    background-color: transparent;
+  }
+
+  .watchlist_movie_list a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--link-underline);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .header_logo {
     margin: 13px auto 3px;
-  }
-
-  .movie_video_wrapper {
-    inline-size: 100%;
-    max-block-size: auto;
-  }
-
-  .movie_video {
-    position: relative;
-    aspect-ratio: 1.7777777777777777;
-  }
-
-  .movie_place {
-    position: relative;
-    top: 0;
-    left: 0;
-    margin: 30px auto -19px;
-    color: var(--main-color);
-    font-size: 61px;
-    line-height: 55px;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .movie_header_text {
-    margin: 26px auto 49px;
-  }
-
-  .movie_name {
-    margin: 0;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.222222222222222;
-  }
-
-  .movie_director_and_year {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.222222222222222;
   }
 
   .watchlist {
@@ -690,29 +653,35 @@ body {
     inline-size: 60%;
   }
 
-  .main_text {
-    font-size: 1rem;
-    line-height: 1.4375rem;
+  .movie_link {
+    width: 25px;
+    max-width: 25px;
+    height: 25px;
   }
 
-  .movie_opinion {
-    font-size: 17px;
-    line-height: 1.5;
+  .movie_place {
+    font-size: 64px;
   }
 
-  .movie_quote {
-    padding-inline-start: 15px;
-  }
-
-  .movie_quote p:first-child {
+  .main_text,
+  .movie_text {
     font-size: 1.125rem;
     line-height: 1.38;
   }
 
+  .movie_quote {
+    padding-left: 15px;
+  }
+
+  .movie_quote p:first-child {
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
   .movie_quote p:last-child {
-    margin-block-start: 8px;
-    font-size: 14px;
-    line-height: 1.35;
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 1.25;
   }
 
   .saving_poster {
@@ -731,40 +700,5 @@ body {
 
   .watchlist_wrapper {
     inline-size: 100%;
-  }
-}
-
-@media (prefers-color-scheme: dark), .dark-theme {
-  :root {
-    --white: #fff;
-    --background: #121212;
-    --background-reverse: var(--white);
-    --saving-background: #272728;
-    --main-color: #f8f8f8;
-    --body-color: var(--white);
-    --color-secondary: #9c9c9c;
-    --border: #dfdfdf;
-    --border-navigation: rgb(255 255 255 / 24%);
-    --button-border: var(--white);
-    --button-background: rgb(255 255 255 / 24%);
-    --link-underline: #aaa;
-    --link-color: #f8f8f8;
-    --link-border: var(--link-color);
-  }
-
-  .header_logo {
-    filter: invert(100%);
-  }
-
-  .movie_quote p:first-child {
-    font-weight: 300;
-  }
-
-  .movie_link:hover {
-    border-color: transparent;
-  }
-
-  .watchlist_title {
-    font-weight: 300;
   }
 }

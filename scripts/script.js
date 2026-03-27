@@ -1,4 +1,4 @@
-import { films } from './films.js';
+import { films } from "./films.js";
 
 const emptyMessages = {
   have_watched: {
@@ -22,7 +22,7 @@ const VideoUtils = {
   },
 
   getPoster(original) {
-    return `${basicLink}video/poster/${this.cleanName(original)}.jpg`;
+    return `${basicLink}video/posters/${this.cleanName(original)}.jpg`;
   },
 
   getCover(original) {
@@ -45,8 +45,8 @@ function renderHeader() {
     return last1 === 1
       ? "лучший фильм"
       : last1 >= 2 && last1 <= 4
-      ? "лучших фильма"
-      : "лучших фильмов";
+        ? "лучших фильма"
+        : "лучших фильмов";
   })(filmCount);
 
   container.innerHTML = "";
@@ -58,33 +58,6 @@ function renderHeader() {
   }
   let loadedCount = 0;
 
-  function checkLogoPosition() {
-    const blocks = container.querySelectorAll(".header_video_block");
-    const second = blocks[1];
-    const third = blocks[2];
-
-    if (!second || !third) return;
-
-    const logo = document.querySelector(".header_logo");
-    if (!logo) return;
-
-    const logoRect = logo.getBoundingClientRect();
-    const secondRect = second.getBoundingClientRect();
-    const thirdRect = third.getBoundingClientRect();
-
-    const logoTopCrossesSecond = logoRect.top >= secondRect.top;
-    const logoTopCrossesThird = logoRect.top >= thirdRect.top;
-    const darkTheme = document.documentElement.classList.contains("dark-theme");
-
-    logo.style.filter =
-      darkTheme || logoTopCrossesSecond || logoTopCrossesThird
-        ? "invert(100%)"
-        : "";
-  }
-
-  window.addEventListener("resize", checkLogoPosition);
-  document.addEventListener("DOMContentLoaded", checkLogoPosition);
-
   [...indices].forEach((idx, i) => {
     const film = filmsList[idx];
     const cleaned = VideoUtils.cleanName(film.original);
@@ -94,19 +67,10 @@ function renderHeader() {
 
     const video = document.createElement("video");
     video.className = "header_video";
-    video.preload = "metadata";
+    video.preload = "auto";
     video.loop = video.muted = video.autoplay = video.playsInline = true;
     video.poster = VideoUtils.getPoster(film.original);
-
-    ["mobile", "desktop"].forEach((type) => {
-      const source = document.createElement("source");
-      source.src = `${basicLink}video/${type}/${cleaned}.mp4`;
-      source.type = "video/mp4";
-      source.media =
-        type === "mobile" ? "(max-width: 500px)" : "(min-width: 501px)";
-      video.appendChild(source);
-    });
-    video.src = `${basicLink}video/desktop/${cleaned}.mp4`;
+    video.src = `${basicLink}video/${cleaned}.mp4`;
 
     const wrapper = document.createElement("div");
     wrapper.className = "header_video_wrapper";
@@ -120,7 +84,6 @@ function renderHeader() {
       if (loadedCount === totalVideos) {
         const videos = container.querySelectorAll(".header_video");
         videos.forEach((v) => (v.style.opacity = "1"));
-        checkLogoPosition();
       }
     });
   });
@@ -192,16 +155,11 @@ function addScrollHandler() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme === "dark") {
-    document.body.classList.add("dark-theme");
-  }
-
   const seenSet = new Set(
-    JSON.parse(localStorage.getItem("movieWatchlist"))?.seen || []
+    JSON.parse(localStorage.getItem("movieWatchlist"))?.seen || [],
   );
   const wantSet = new Set(
-    JSON.parse(localStorage.getItem("movieWatchlist"))?.want || []
+    JSON.parse(localStorage.getItem("movieWatchlist"))?.want || [],
   );
   const sortedFilms = Object.values(films)
     .sort((a, b) => a.place - b.place)
@@ -251,10 +209,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateWatchlistCounts() {
     const haveNum = document.querySelector(
-      ".navigation_watchlist p:first-child .num"
+      ".navigation_watchlist p:first-child .num",
     );
     const wantNum = document.querySelector(
-      ".navigation_watchlist p:nth-child(2) .num"
+      ".navigation_watchlist p:nth-child(2) .num",
     );
 
     if (!haveNum || !wantNum) return;
@@ -285,35 +243,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const item = clone.querySelector(".movie_item");
       item.id = `movie-${film.place}`;
 
+      clone.querySelector(".movie_link").href = film.link;
+      clone.querySelector(".movie_place").textContent = film.place;
+      clone.querySelector(".movie_name").innerHTML = film.title;
+      clone.querySelector(".movie_director_and_year").textContent =
+        `${film.director}, ${film.year}`;
+
       const video = clone.querySelector(".movie_video");
       const cleaned = VideoUtils.cleanName(film.original);
       video.poster = VideoUtils.getPoster(film.original);
-
-      ["mobile", "desktop"].forEach((type) => {
-        const source = document.createElement("source");
-        source.src = `${basicLink}video/${type}/${cleaned}.mp4`;
-        source.type = "video/mp4";
-        source.media =
-          type === "mobile" ? "(max-width: 500px)" : "(min-width: 501px)";
-        video.appendChild(source);
-      });
-
-      video.src = `${basicLink}video/desktop/${cleaned}.mp4`;
-
+      video.src = `${basicLink}video/${cleaned}.mp4`;
       video.addEventListener("loadedmetadata", () => {
         video.style.opacity = "1";
       });
 
-      clone.querySelector(".movie_place").textContent = film.place;
-      clone.querySelector(".movie_name").textContent = film.title;
-      clone.querySelector(
-        ".movie_director_and_year"
-      ).textContent = `${film.director}, ${film.year}`;
-      clone.querySelector(".movie_opinion").textContent = film.opinion;
-      clone.querySelector(
-        ".movie_link"
-      ).textContent = `“${film.title}” на Кинопоиске`;
-      clone.querySelector(".movie_link").href = film.link;
+      clone.querySelector(".movie_opinion").innerHTML = film.opinion;
 
       const quotesContainer = clone.querySelector(".movie_quotes");
       if (film.quote && film.quote.length > 0) {
@@ -324,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>“${q.quote}”</p>
                 <p>${q.who}</p>
             </div>
-        `
+        `,
           )
           .join("");
       } else {
@@ -377,14 +321,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ? seenSet.add(place)
         : wantSet.add(place)
       : type === "seen"
-      ? seenSet.delete(place)
-      : wantSet.delete(place);
+        ? seenSet.delete(place)
+        : wantSet.delete(place);
 
     updateWatchlist();
     updateWatchlistCounts();
     localStorage.setItem(
       "movieWatchlist",
-      JSON.stringify({ seen: [...seenSet], want: [...wantSet] })
+      JSON.stringify({ seen: [...seenSet], want: [...wantSet] }),
     );
   }
 
@@ -467,7 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const newImg = document.createElement("img");
       newImg.src = originalImg.src.replace(
         "posters/",
-        `sizes/${getBaseWidth(size) * 6}/`
+        `sizes/${getBaseWidth(size) * 6}/`,
       );
       newImg.style.width = `${getBaseWidth(size) * 6}px`;
       newImg.style.borderRadius = `20px`;
@@ -563,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const clone = createScreenshot(
           wrapper,
           screenshotSize.width,
-          screenshotSize.height
+          screenshotSize.height,
         );
 
         await new Promise((resolve) => {
