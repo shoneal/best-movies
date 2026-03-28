@@ -190,7 +190,7 @@ body {
 
 .navigation_wrapper a {
   font-family: var(--franklin);
-  font-weight: 500;
+  font-weight: 450;
   font-size: 14px;
   text-decoration: underline;
   text-decoration-color: var(--background);
@@ -275,13 +275,13 @@ body {
 }
 
 .movie_place {
-  font-weight: 300;
+  font-weight: 350;
   font-size: 72px;
   line-height: 1;
 }
 
 .movie_name {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 38px;
   line-height: 1;
   letter-spacing: 0.025em;
@@ -313,10 +313,6 @@ body {
   font-size: 1.25rem;
   line-height: 1.5;
   text-align: start;
-}
-
-.movie_opinion {
-  font-weight: 500;
 }
 
 .movie_quotes {
@@ -417,7 +413,7 @@ body {
 .checkbox_label span {
   padding-left: 5px;
   color: var(--body-color);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 23px;
   cursor: pointer;
 }
@@ -498,7 +494,7 @@ body {
 
 .watchlist_title {
   margin-bottom: 15px;
-  font-weight: 300;
+  font-weight: 350;
   font-size: 35px;
   line-height: 1;
 }
@@ -507,7 +503,7 @@ body {
   max-width: var(--width-standart);
   margin: 0 auto 15px;
   font-family: var(--franklin);
-  font-weight: 400;
+  font-weight: 350;
   font-size: 15px;
   line-height: 1.4;
 }
@@ -557,6 +553,7 @@ body {
   padding: 16px;
   color: var(--white);
   font-family: var(--franklin);
+  font-weight: 350;
   font-size: 16px;
   background-color: transparent;
   transition: background-color 0.25s;
@@ -573,7 +570,7 @@ body {
   margin: 10px auto 30px;
   color: var(--white);
   font-family: var(--franklin);
-  font-weight: 400;
+  font-weight: 350;
   font-size: 16px;
   line-height: 1.4;
   text-align: center;
